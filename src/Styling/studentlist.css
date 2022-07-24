@@ -1,0 +1,9 @@
+.Edit {
+	color: white;
+}
+.action {
+	display: flex;
+	width: auto;
+	height: auto;
+	justify-content: center;
+}
