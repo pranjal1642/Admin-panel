@@ -17,7 +17,6 @@ const Login = () => {
 		email: '',
 		password: '',
 		loading: false,
-		didRedirect: false,
 	});
 
 	const { loading } = data;
