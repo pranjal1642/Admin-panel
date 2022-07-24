@@ -6,13 +6,6 @@ import { collection, getDocs } from 'firebase/firestore';
 const StudentAccount = () => {
 	const [dataShow, setData] = useState([]);
 
-	// let count = 0;
-	// dataShow?.map((list) => {
-	// 	if (list !== 'undefined') {
-	// 		count = count + 1;
-	// 	}
-	// });
-
 	useEffect(() => {
 		(async () => {
 			const querySnapshot = await getDocs(collection(db, 'UserRegister'));
