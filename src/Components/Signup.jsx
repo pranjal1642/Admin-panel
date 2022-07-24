@@ -17,6 +17,7 @@ import {
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../Firebase/firebaseConfig';
 import { toast } from 'react-toastify';
+import { FaEye } from 'react-icons/fa';
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -199,7 +200,7 @@ const Signup = () => {
 												type={passwordShown ? 'text' : 'password'}
 												name="password"
 											/>
-											<i
+											<FaEye
 												onClick={togglePassword}
 												className=" btn btn-warning far fa-eye mb-0"
 												aria-hidden="true"
