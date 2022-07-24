@@ -20,7 +20,7 @@ const Login = () => {
 		didRedirect: false,
 	});
 
-	const { email, password, error, loading, didRedirect } = data;
+	const { loading } = data;
 	const validationSchema = Yup.object({
 		email: Yup.string()
 			.email('Invalid email format')
