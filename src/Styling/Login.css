@@ -1,4 +1,4 @@
-.form-control {
+/* .form-control {
 	border: 1px solid #ddd;
 	box-shadow: none;
 	color: #333;
@@ -19,7 +19,11 @@
 
 .form-control.form-control-lg {
 	height: calc(1.5em + 1rem + 2px);
-}
+} */
+/* 
+@media only screen and (min-width: 600px) {
+	/* For tablets: */
+
 /* .form-control {
 	margin-left: -30px;
 	cursor: pointer;

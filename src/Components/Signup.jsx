@@ -18,6 +18,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../Firebase/firebaseConfig';
 import { toast } from 'react-toastify';
 import { FaEye } from 'react-icons/fa';
+import { Card, Container } from '@material-ui/core';
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -142,7 +143,7 @@ const Signup = () => {
 				validationSchema={validationSchema}
 			>
 				<Form>
-					<div className="container p-0 m-0">
+					<div className="container p-2 m-2">
 						<div className="row">
 							<div className="col-lg-9 ">
 								<div className="row mt-2">
@@ -200,9 +201,9 @@ const Signup = () => {
 												type={passwordShown ? 'text' : 'password'}
 												name="password"
 											/>
-											<FaEye
+											<i
 												onClick={togglePassword}
-												className=" btn btn-warning far fa-eye mb-0"
+												className=" btn btn-warning fa fa-eye mb-0"
 												aria-hidden="true"
 											/>
 										</div>

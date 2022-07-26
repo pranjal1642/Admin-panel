@@ -11,7 +11,7 @@ const Admin = () => {
 					<Widget type="user" />
 					<Widget type="order" />
 					<Widget type="earning" />
-					<Widget type="balance" />
+					<Widget type="TotalPayment" />
 				</div>
 				<div className="charts">
 					<Featured />

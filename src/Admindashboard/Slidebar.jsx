@@ -30,15 +30,20 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { GrScorecard } from 'react-icons/gr';
 import { BiUserPlus } from 'react-icons/bi';
 import Logout from '../Components/Logout';
+import { Col } from 'rsuite';
 
-const Slidebar = () => {
+const Slidebar = (props) => {
 	//create initial menuCollapse state using useState hook
 	const [menuCollapse, setMenuCollapse] = useState(false);
+	const [width, setWidth] = useState(true);
 
 	//create a custom function that will change menucollapse state from false to true and true to false
 	const menuIconClick = () => {
 		//condition checking to change state from true to false and vice versa
 		menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+
+		setWidth(!width);
+		props.setwid(width);
 	};
 
 	return (
@@ -49,11 +54,25 @@ const Slidebar = () => {
 					<SidebarHeader>
 						<div className="logotext mt-3">
 							{/* small and big change using menucollapse state */}
-							<p>{menuCollapse ? 'Admin' : 'Admin Panel'}</p>
+							<p>
+								{menuCollapse ? (
+									<img
+										src="https://preschool.dreamguystech.com/react/77bb6386af577f49da2b82e1684669d5.png"
+										alt="logo"
+										className="img-fluid"
+									/>
+								) : (
+									<img
+										src="https://preschool.dreamguystech.com/react/f5d66ee9d0af30a8b083d16966421565.png"
+										alt="Logo"
+										className="img-fluid"
+									/>
+								)}
+							</p>
 						</div>
 						<div className="closemenu" onClick={menuIconClick}>
 							{/* changing menu collapse icon on click */}
-							{/* {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />} */}
+							{menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
 						</div>
 					</SidebarHeader>
 					<SidebarContent>

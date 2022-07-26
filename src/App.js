@@ -35,8 +35,6 @@ const App = () => {
 			<ToastContainer />
 
 			<BrowserRouter>
-				{/* <Navbar /> */}
-
 				<Routes>
 					<>
 						<Route element={<Layout />}>
@@ -60,9 +58,7 @@ const App = () => {
 						</Route>
 					</>
 
-					<Route path="/login" element={<Login />} />
-
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<Login />} />
 
 					<Route path="/:pageName" element={<PageNotFound />} />
 				</Routes>

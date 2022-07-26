@@ -75,7 +75,7 @@ const CourseList = () => {
 											</button>
 											<button className="btn btn-outline-warning border-0 m-0 p-0  ">
 												<Link
-													className=" btn far fa-eye"
+													className=" btn fa fa-eye"
 													to={`/studentsinfo?CourseName=${list?.CourseName}`}
 												/>
 											</button>

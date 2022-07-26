@@ -23,7 +23,7 @@ const Logout = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				sessionStorage.removeItem('Auth Token');
-				navigate('/login');
+				navigate('/');
 			} else {
 				Swal.fire({
 					title: 'You are logged in',
@@ -34,7 +34,9 @@ const Logout = () => {
 	};
 	return (
 		<div>
-			<button onClick={handleLogout}>Logout</button>
+			<button className="f-4x" onClick={handleLogout}>
+				Logout
+			</button>
 		</div>
 	);
 };

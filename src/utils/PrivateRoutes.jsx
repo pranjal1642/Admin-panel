@@ -4,7 +4,7 @@ const PrivateRoutes = () => {
 	return sessionStorage.getItem('Auth Token') ? (
 		<Outlet />
 	) : (
-		<Navigate to="/login" />
+		<Navigate to="/" />
 	);
 };
 
