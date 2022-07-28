@@ -172,7 +172,7 @@ const StudentList = () => {
 
 	return (
 		<>
-			<div>
+			<div className="container">
 				<h3 className="page-title mt-3">Students Details</h3>
 				<ul className="breadcrumb">
 					<li className="breadcrumb-item">Dashboard</li>
@@ -247,28 +247,24 @@ const StudentList = () => {
 						</CSVLink>
 					</div>
 				</div>
+				<DataTable
+					columns={columns}
+					data={dataShow.filter((val) => {
+						if (search === '') {
+							return val;
+						} else if (val.Name.toLowerCase().includes(search.toLowerCase())) {
+							return val;
+						}
+					})}
+					striped
+					highlightOnHover
+					defaultSortField="name"
+					pagination={1 - 5}
+					defaultSortAsc={false}
+					viewtotal={true}
+				/>
 
-				<div className="table-responsive-md">
-					<DataTable
-						columns={columns}
-						data={dataShow.filter((val) => {
-							if (search === '') {
-								return val;
-							} else if (
-								val.Name.toLowerCase().includes(search.toLowerCase())
-							) {
-								return val;
-							}
-						})}
-						striped
-						highlightOnHover
-						defaultSortField="name"
-						pagination={1 - 5}
-						defaultSortAsc={false}
-						viewtotal={true}
-					/>
-					{loadingMessage()}
-				</div>
+				{loadingMessage()}
 			</div>
 		</>
 	);

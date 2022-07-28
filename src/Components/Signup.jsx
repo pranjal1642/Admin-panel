@@ -145,9 +145,9 @@ const Signup = () => {
 				<Form>
 					<div className="container p-2 m-2">
 						<div className="row">
-							<div className="col-lg-9 ">
+							<div className="col ">
 								<div className="row mt-2">
-									<div className="col-sm-12">
+									<div className="col-sm-10">
 										<div className="topmg">
 											<h3 className="page-title"> Register Student</h3>
 											<ul className="breadcrumb">

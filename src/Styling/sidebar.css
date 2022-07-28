@@ -1,6 +1,8 @@
 #header {
 	position: fixed;
 	width: 220px;
+	top: 0;
+	bottom: 0;
 }
 #header .pro-sidebar {
 	height: 100vh;
@@ -9,7 +11,6 @@
 	color: #000;
 	position: absolute;
 	right: 0;
-	z-index: 9999;
 	line-height: 20px;
 	border-radius: 50%;
 	font-weight: bold;
@@ -17,6 +18,12 @@
 	top: 55px;
 	cursor: pointer;
 }
+/* @media (max-width: 767.98px) {
+	#header .pro-sidebar.collapsed {
+		width: 10px;
+		min-width: 10px;
+	}
+} */
 #header .pro-sidebar {
 	width: 100%;
 	min-width: 100%;
@@ -29,9 +36,9 @@
 	background-color: white;
 	box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
 }
-#header .pro-sidebar-inner .pro-sidebar-layout {
+/* #header .pro-sidebar-inner .pro-sidebar-layout {
 	overflow-y: hidden;
-}
+} */
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
 	font-size: 20px;
 	padding: 0 20px;
@@ -75,10 +82,14 @@
 	background-color: white;
 }
 
-@media only screen and (max-width: 720px) {
+/* @media only screen and (max-width: 720px) {
 	html {
 		overflow: hidden;
 	}
-}
-@media (max-width: 700px) {
+} */
+@media only screen and (max-width: 500px) {
+	#header .pro-sidebar.collapsed {
+		width: 20px;
+		min-width: 20px;
+	}
 }

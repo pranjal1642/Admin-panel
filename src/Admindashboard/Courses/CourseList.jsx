@@ -31,7 +31,7 @@ const CourseList = () => {
 	return (
 		<>
 			<div>
-				<div className="container p-0 m-0">
+				<div className="container">
 					<div className="page-header">
 						<Row>
 							<Col className="col ">
@@ -48,43 +48,45 @@ const CourseList = () => {
 							<FiPlusCircle className="fa-2x " />
 						</Link>
 					</div>
-					<Table className="table  table-hover table-breadcumb active table-bordered">
-						<thead>
-							<tr className="bg-warning">
-								<th scope="col">Class</th>
-								<th scope="col">Admission Fee</th>
-								<th scope="col">Monthly Fee</th>
-								<th scope="col">Session Fee</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{dataShow?.map((list, index) => {
-								return (
-									<tr key={index}>
-										<td>{list?.CourseName}</td>
-										<td>Rs {list?.Admissionfee}</td>
-										<td>Rs {list?.Monthlyfee}</td>
-										<td>Rs {list?.SessionFee}</td>
-										<th scope="col">
-											<button className="btn btn-outline-warning border-0 m-1 p-0  ">
-												<Link
-													className="btn fa fa-pencil-square-o "
-													to={`/CourseEdit/${list.id}`}
-												></Link>
-											</button>
-											<button className="btn btn-outline-warning border-0 m-0 p-0  ">
-												<Link
-													className=" btn fa fa-eye"
-													to={`/studentsinfo?CourseName=${list?.CourseName}`}
-												/>
-											</button>
-										</th>
-									</tr>
-								);
-							})}
-						</tbody>
-					</Table>
+					<div className="table-responsive">
+						<Table className="table  table-hover table-breadcumb active table-bordered table align-middle">
+							<thead>
+								<tr className="bg-warning">
+									<th scope="col">Class</th>
+									<th scope="col">Admission Fee</th>
+									<th scope="col">Monthly Fee</th>
+									<th scope="col">Session Fee</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{dataShow?.map((list, index) => {
+									return (
+										<tr key={index}>
+											<td>{list?.CourseName}</td>
+											<td>Rs {list?.Admissionfee}</td>
+											<td>Rs {list?.Monthlyfee}</td>
+											<td>Rs {list?.SessionFee}</td>
+											<th scope="col">
+												<button className="btn btn-outline-warning border-0 m-1 p-0  ">
+													<Link
+														className="btn fa fa-pencil-square-o "
+														to={`/CourseEdit/${list.id}`}
+													></Link>
+												</button>
+												<button className="btn btn-outline-warning border-0 m-0 p-0  ">
+													<Link
+														className=" btn fa fa-eye"
+														to={`/studentsinfo?CourseName=${list?.CourseName}`}
+													/>
+												</button>
+											</th>
+										</tr>
+									);
+								})}
+							</tbody>
+						</Table>
+					</div>
 				</div>
 			</div>
 		</>

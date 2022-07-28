@@ -12,10 +12,10 @@ const Layout = () => {
 				<Row>
 					{!w ? (
 						<>
-							<Col lg={3}>
+							<Col lg={3} sm={3}>
 								<Slidebar setwid={(x) => setw(x)} />
 							</Col>
-							<Col lg={9}>
+							<Col lg={9} sm={9}>
 								<Outlet />
 							</Col>
 						</>
@@ -24,7 +24,7 @@ const Layout = () => {
 							<Col lg={1}>
 								<Slidebar setwid={(x) => setw(x)} />
 							</Col>
-							<Col sm={11}>
+							<Col lg={11}>
 								<Outlet />
 							</Col>
 						</>

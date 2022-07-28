@@ -224,10 +224,10 @@ const FeesForm = () => {
 		<>
 			<Formik initialValues={dataShow} onSubmit={handleSubmit}>
 				<Form>
-					<div className="container p-0 m-0 ">
-						<div className="col-lg-9 ">
+					<div className="container ">
+						<div className="col ">
 							<div className="row mt-2">
-								<div className="col-sm-12">
+								<div className="col-sm-10">
 									<div className="topmg">
 										<h3 className="page-title">Fees</h3>
 										<ul className="breadcrumb">

@@ -5,7 +5,7 @@ import '../Styling/admin.scss';
 
 const Admin = () => {
 	return (
-		<div className="home">
+		<div className="home1">
 			<div className="homeContainer">
 				<div className="widgets">
 					<Widget type="user" />

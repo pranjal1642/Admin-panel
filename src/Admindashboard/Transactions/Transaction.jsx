@@ -212,7 +212,7 @@ const Transaction = () => {
 
 	return (
 		<>
-			<div>
+			<div className="container">
 				<h3 className="page-title mt-3">Transactions </h3>
 				<ul className="breadcrumb">
 					<li className="breadcrumb-item">Dashboard</li>
