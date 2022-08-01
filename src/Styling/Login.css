@@ -107,7 +107,7 @@ label.custom-control-label {
 	display: flex;
 	margin: 1.875rem auto;
 	max-width: 800px;
-	min-height: 500px;
+	/* min-height: 500px; */
 	width: 100%;
 }
 .login-wrapper .loginbox .login-left {
@@ -219,4 +219,14 @@ label.custom-control-label {
 /* //btn */
 .form-group .btn {
 	width: 100%;
+}
+@media only screen and (max-width: 500px) {
+	.login-wrapper {
+		width: 100%;
+	}
+	.login-wrapper .loginbox .login-left {
+		padding: 0px;
+		width: 0px;
+		display: flex;
+	}
 }

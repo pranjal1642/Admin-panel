@@ -73,7 +73,7 @@ const Widget = ({ type }) => {
 			(daysOfMonth = moment(item.timeStamp.seconds * 1000).format(
 				'YYYY-MMM-DD',
 			)),
-			(daysOfMonth = fullMonth && daysOfMonth <= today)
+			daysOfMonth >= fullMonth && daysOfMonth >= today
 		);
 	});
 	const Thirty_Days_Amount = LastThirtyDays.map((item) => item.amount).reduce(
@@ -114,7 +114,7 @@ const Widget = ({ type }) => {
 			data = {
 				Amount: numberWithCommas(SevenDaysAmount),
 
-				title: 'Last week payments',
+				title: 'Lastweek Payments',
 				isMoney: true,
 				link: 'View Students',
 				icon: (

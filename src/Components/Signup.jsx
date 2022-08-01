@@ -143,7 +143,7 @@ const Signup = () => {
 				validationSchema={validationSchema}
 			>
 				<Form>
-					<div className="container p-2 m-2">
+					<div className="container">
 						<div className="row">
 							<div className="col ">
 								<div className="row mt-2">
