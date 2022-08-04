@@ -317,7 +317,7 @@ const FeesForm = () => {
 													<div className="text-center mt-4">
 														{verified ? (
 															<span className="btn btn-success">
-																verified
+																Verified
 																{/* <button onClick={editVerify}></button> */}
 															</span>
 														) : (
@@ -327,7 +327,7 @@ const FeesForm = () => {
 																}
 																className="btn btn-warning"
 															>
-																verify
+																Verify
 															</button>
 														)}
 													</div>

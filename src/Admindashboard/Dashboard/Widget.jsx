@@ -32,7 +32,6 @@ const Widget = ({ type }) => {
 	const fullMonth = moment().subtract(30, 'd').format('YYYY-MMM-DD');
 	const sevendays = moment().subtract(7, 'd').format('YYYY-MM-DD');
 	function numberWithCommas(x) {
-		debugger;
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 	let data;

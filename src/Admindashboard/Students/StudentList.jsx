@@ -193,7 +193,7 @@ const StudentList = () => {
 							<input
 								type="search"
 								class="form-control"
-								placeholder="search..."
+								placeholder="Search..."
 								onChange={(e) => {
 									setSearch(e.target.value);
 								}}

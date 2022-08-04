@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../Firebase/firebaseConfig';
 import { FiPlusCircle } from 'react-icons/fi';
+import DataTable from 'react-data-table-component-with-filter';
+function numberWithCommas(x) {
+	debugger;
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 const CourseList = () => {
 	const [dataShow, setData] = useState([]);
 	const [order, setOrder] = useState('ASC');
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		(async () => {
+			setLoading(true);
+
 			const querySnapshot = collection(db, 'Courses');
 			const Sort = query(querySnapshot, orderBy('timeStamp', 'asc'));
 			const querySnap2 = await getDocs(Sort);
@@ -18,6 +26,8 @@ const CourseList = () => {
 			querySnap2.forEach((doc) => {
 				list.push({ ...doc.data(), id: doc.id });
 			});
+			setLoading(false);
+
 			setData(list);
 		})();
 	}, []);
@@ -27,6 +37,58 @@ const CourseList = () => {
 			count = count + 1;
 		}
 	});
+	const loadingMessage = () => {
+		return (
+			loading && (
+				<div className="d-flex justify-content-center">
+					<div className="spinner-border text-primary" role="status">
+						<span className="sr-only">Loading...</span>
+					</div>
+				</div>
+			)
+		);
+	};
+	const columns = [
+		{
+			name: 'Class',
+			selector: (row) => row.CourseName,
+
+			sortable: true,
+		},
+		{
+			name: 'Admission Fee',
+			selector: (row) => numberWithCommas(row.Admissionfee),
+			sortable: true,
+		},
+		{
+			name: 'Monthly Fee',
+			// selector: 'Course',
+			selector: (row) => numberWithCommas(row.Monthlyfee),
+			sortable: true,
+		},
+		{
+			name: 'Action',
+			button: true,
+			selector: 'id',
+			cell: (row) => (
+				<div>
+					<button className="btn btn-outline-warning border-0 m-1 p-0  ">
+						<Link
+							className="btn fa fa-pencil-square-o "
+							to={`/CourseEdit/${row.id}`}
+						></Link>
+					</button>
+					<button className="btn btn-outline-warning border-0 m-0 p-0  ">
+						<Link
+							className=" btn fa fa-eye"
+							to={`/studentsinfo?CourseName=${row?.CourseName}`}
+						/>
+					</button>
+					{/* <button onClick={() => deletedata(row.id)}>{<MdDelete />}</button> */}
+				</div>
+			),
+		},
+	];
 
 	return (
 		<>
@@ -48,45 +110,17 @@ const CourseList = () => {
 							<FiPlusCircle className="fa-2x " />
 						</Link>
 					</div>
-					<div className="table-responsive">
-						<Table className="table  table-hover table-breadcumb active table-bordered table align-middle">
-							<thead>
-								<tr className="bg-warning">
-									<th scope="col">Class</th>
-									<th scope="col">Admission Fee</th>
-									<th scope="col">Monthly Fee</th>
-									<th scope="col">Session Fee</th>
-									<th scope="col">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								{dataShow?.map((list, index) => {
-									return (
-										<tr key={index}>
-											<td>{list?.CourseName}</td>
-											<td>Rs {list?.Admissionfee}</td>
-											<td>Rs {list?.Monthlyfee}</td>
-											<td>Rs {list?.SessionFee}</td>
-											<th scope="col">
-												<button className="btn btn-outline-warning border-0 m-1 p-0  ">
-													<Link
-														className="btn fa fa-pencil-square-o "
-														to={`/CourseEdit/${list.id}`}
-													></Link>
-												</button>
-												<button className="btn btn-outline-warning border-0 m-0 p-0  ">
-													<Link
-														className=" btn fa fa-eye"
-														to={`/studentsinfo?CourseName=${list?.CourseName}`}
-													/>
-												</button>
-											</th>
-										</tr>
-									);
-								})}
-							</tbody>
-						</Table>
-					</div>
+					<DataTable
+						columns={columns}
+						data={dataShow}
+						striped
+						highlightOnHover
+						defaultSortField="name"
+						pagination={1 - 5}
+						defaultSortAsc={false}
+						viewtotal={true}
+					/>
+					{loadingMessage()}
 				</div>
 			</div>
 		</>

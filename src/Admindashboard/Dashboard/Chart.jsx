@@ -1,53 +1,113 @@
 import '../../Styling/Chart.scss';
 import {
 	AreaChart,
-	Area,
+	ComposedChart,
+	BarChart,
+	Bar,
+	YAxis,
 	XAxis,
-	CartesianGrid,
 	Tooltip,
 	ResponsiveContainer,
+	Legend,
+	Line,
+	Cell,
 } from 'recharts';
+import { useEffect, useState } from 'react';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { db } from '../../Firebase/firebaseConfig';
+import { scaleOrdinal } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 
-const data = [
-	{ name: 'January', Total: 1200 },
-	{ name: 'February', Total: 2100 },
-	{ name: 'March', Total: 800 },
-	{ name: 'April', Total: 1600 },
-	{ name: 'May', Total: 900 },
-	{ name: 'June', Total: 1700 },
-];
+const colors = scaleOrdinal(schemeCategory10).range();
 
-const Chart = ({ aspect, title }) => {
+const Charts = ({ aspect, title, classes }) => {
+	const [transactions, setTransactions] = useState([]);
+	transactions.sort((a, b) => {
+		return a.Name - b.Name;
+	});
+
+	useEffect(() => {
+		const q = query(
+			collection(db, 'StudentInfo'),
+			orderBy('timeStamp', 'desc'),
+		);
+		const unsubscribe = onSnapshot(q, (querySnapshot) => {
+			const Transactions = querySnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
+			setTransactions(Transactions);
+		});
+		return () => unsubscribe();
+	}, []);
+	function findOcc(arr, key) {
+		let arr2 = [];
+
+		arr.forEach((x) => {
+			// Checking if there is any object in arr2
+			// which contains the key value
+			if (
+				arr2.some((val) => {
+					return val[key] == x[key];
+				})
+			) {
+				// If yes! then increase the occurrence by 1
+				arr2.forEach((k) => {
+					if (k[key] === x[key]) {
+						k['Students']++;
+					}
+				});
+			} else {
+				// If not! Then create a new object initialize
+				// it with the present iteration key's value and
+				// set the occurrence to 1
+				let a = {};
+				a[key] = x[key];
+				a['Students'] = 1;
+				arr2.push(a);
+			}
+		});
+
+		return arr2;
+	}
+	let key = 'ClassName';
 	return (
 		<div className="chart">
 			<div className="title">{title}</div>
+			{!transactions && <div>Loading...</div>}
 			<ResponsiveContainer width="100%" aspect={aspect}>
-				<AreaChart
+				<ComposedChart
 					width={730}
 					height={250}
-					data={data}
-					margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+					data={findOcc(transactions, key)}
+					margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
 				>
-					<defs>
-						<linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-							<stop offset="5%" stopColor="#f5d142" stopOpacity={1} />
-							<stop offset="95%" stopColor="#f5d142" stopOpacity={0} />
-						</linearGradient>
-					</defs>
-					<XAxis dataKey="name" stroke="gray" />
-					<CartesianGrid strokeDasharray="3 3" className="chartGrid" />
-					<Tooltip />
-					<Area
-						type="monotone"
-						dataKey="Total"
-						stroke="#0c0c0d"
-						fillOpacity={1}
-						fill="url(#total)"
+					{/* <CartesianGrid stroke="#ccc" /> */}
+					<Bar
+						dataKey="Students"
+						fill="#8884d8"
+						barSize={50}
+						label={{ position: 'top' }}
 					/>
-				</AreaChart>
+					{transactions.map((entry, index) => (
+						<Cell key={`cell-${index}`} fill={colors[index % 20]} />
+					))}
+					<XAxis dataKey="CourseName" />
+					<YAxis
+						label={{
+							value: 'No Of Students',
+							angle: -90,
+							position: 'insideLeft',
+						}}
+					/>
+					<Line type="monotone" dataKey="Students" stroke="#ff7300" />
+
+					<Tooltip />
+					<Legend />
+				</ComposedChart>
 			</ResponsiveContainer>
 		</div>
 	);
 };
 
-export default Chart;
+export default Charts;

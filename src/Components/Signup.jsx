@@ -1,7 +1,7 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styling/Login.css';
 
@@ -19,8 +19,13 @@ import { db } from '../Firebase/firebaseConfig';
 import { toast } from 'react-toastify';
 import { FaEye } from 'react-icons/fa';
 import { Card, Container } from '@material-ui/core';
-
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import { useEffect } from 'react';
 const Signup = () => {
+	const [value, setValue] = useState();
+
 	const navigate = useNavigate();
 
 	const [data, setdata] = useState({
@@ -62,11 +67,11 @@ const Signup = () => {
 		Fathername: Yup.string().required('Enter Father name'),
 		role: Yup.string().required('Select role'),
 		Mname: Yup.string().required('Enter Mother name'),
-		Pnumber: Yup.string()
-			.required('Phone-No Required')
-			.matches(phoneRegExp, 'Phone number is not valid')
-			.min(10, 'to short')
-			.max(10, 'to long'),
+		// Pnumber: Yup.string()
+		// 	.required('Phone-No Required')
+		// 	.matches(phoneRegExp, 'Phone number is not valid')
+		// 	.min(10, 'to short')
+		// 	.max(10, 'to long'),
 	});
 	const Authentication = (data) => {
 		const authentication = getAuth();
@@ -99,9 +104,10 @@ const Signup = () => {
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e, value) => {
 		debugger;
 		console.log(e);
+		console.log(value);
 
 		Authentication(e);
 	};
@@ -127,13 +133,38 @@ const Signup = () => {
 
 				Fathername: e.Fathername,
 				Mname: e.Mname,
-				Pnumber: e.Pnumber,
+				Pnumber: value,
 				userName: e.userName,
 			});
 			console.log('Document written with ID:', docRef.id);
 		} catch (e) {
 			console.error('Error adding details', e);
 		}
+	};
+	useMemo(() => {
+		console.log(value);
+	}, [value]);
+
+	const PhoneInputField = ({ field, form }) => {
+		debugger;
+		return (
+			<PhoneInput
+				country={'in'}
+				className="anonymous"
+				value={field.name}
+				onChange={setValue}
+				placeholder="Enter Phone Number"
+				isValid={(value, country) => {
+					if (value.match(/12345/)) {
+						return 'Invalid value: ' + value + ', ' + country.name;
+					} else if (value.match(/1234/)) {
+						return false;
+					} else {
+						return true;
+					}
+				}}
+			/>
+		);
 	};
 	return (
 		<>
@@ -246,13 +277,16 @@ const Signup = () => {
 										<div className="form-group">
 											<label htmlFor="Number"> Parent-Number</label>
 											<Field
-												className="form-control"
-												type="number"
+												required="true"
+												type="tel"
+												component={PhoneInputField}
 												name="Pnumber"
+												value={data.Pnumber}
+												onChange={(phone) => setdata('Pnumber', phone)}
 											/>
-											<small className="text-danger m-2">
+											{/* <small className="text-danger m-2">
 												<ErrorMessage name="Pnumber" />
-											</small>
+											</small> */}
 										</div>
 									</div>
 

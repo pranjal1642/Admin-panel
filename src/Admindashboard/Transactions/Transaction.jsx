@@ -28,6 +28,10 @@ import 'rsuite/dist/rsuite.min.css';
 
 import { DateRangePicker } from 'rsuite';
 import { CSVDownload, CSVLink } from 'react-csv';
+function numberWithCommas(x) {
+	debugger;
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 const Transaction = () => {
 	const [dataShow, setData] = useState([]);
@@ -138,7 +142,7 @@ const Transaction = () => {
 		},
 		{
 			name: 'Amount',
-			selector: (row) => `₹ ${row.amount}`,
+			selector: (row) => numberWithCommas(`₹ ${row.amount}`),
 			sortable: true,
 		},
 		// {
@@ -220,12 +224,19 @@ const Transaction = () => {
 				</ul>
 
 				<div className=" d-flex">
-					<div class="input-group mb-2">
+					<div className="m-2 p-1">
+						<DateRangePicker
+							style={{ width: 300 }}
+							placeholder="Select Date Range"
+							onChange={(e) => handleDaterange(e)}
+						/>
+					</div>
+					<div class="input-group mt-2">
 						<div class="form-outline">
 							<input
 								type="search"
 								class="form-control"
-								placeholder="search..."
+								placeholder="Search..."
 								onChange={(e) => {
 									setSearch(e.target.value);
 								}}
@@ -244,13 +255,6 @@ const Transaction = () => {
 							<BiDownload />
 						</CSVLink>
 					</div>
-				</div>
-				<div>
-					<DateRangePicker
-						style={{ width: 300 }}
-						placeholder="Select Date Range"
-						onChange={(e) => handleDaterange(e)}
-					/>
 				</div>
 
 				<div className="table-responsive-md">
